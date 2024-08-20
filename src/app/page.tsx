@@ -11,6 +11,7 @@ import {
 } from "../components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/dist/client/link";
 
 export default function Home() {
@@ -27,24 +28,30 @@ export default function Home() {
                 <div className="grid max-w-md w-screen grid-cols-2 gap-2 p-2">
                   <NavigationMenuLink
                     href="/getting-started/solving-questions"
-                    className="col-span-1 row-span-2 p-2 bg-accent pt-24 shadow-sm shadow-accent rounded-lg border-accent border"
+                    className="col-span-1 row-span-2 p-2 bg-gradient-to-t from-slate-200 to-accent pt-28 rounded-lg"
                   >
-                    <p className="text-xl">Solving Questions</p>
-                    <p>Solve questions and practice for your coding skills.</p>
+                    <p className="text-lg">Solving Questions</p>
+                    <p className="text-black/70">
+                      Solve questions and practice for your coding skills.
+                    </p>
                   </NavigationMenuLink>
                   <NavigationMenuLink
                     href="/getting-started/create-questions"
-                    className="p-2 rounded-lg shadow-sm shadow-accent border-accent border"
+                    className="p-2 rounded-lg shadow-sm hover:bg-accent border  transition-colors"
                   >
-                    <p>Create Questions</p>
-                    <p>Create questions and share them!</p>
+                    <p className="text-lg">Create Questions</p>
+                    <p className="text-black/70">
+                      Create questions and share them!
+                    </p>
                   </NavigationMenuLink>
                   <NavigationMenuLink
                     href="/getting-started/reporting"
-                    className="p-2 rounded-lg shadow-sm shadow-accent border-accent border"
+                    className="p-2 rounded-lg shadow-sm hover:bg-accent border transition-colors"
                   >
-                    <p>Reporting</p>
-                    <p>Learn the process behind reporting.</p>
+                    <p className="text-lg">Reporting</p>
+                    <p className="text-black/70">
+                      Learn the process behind reporting.
+                    </p>
                   </NavigationMenuLink>
                 </div>
               </NavigationMenuContent>
@@ -69,12 +76,19 @@ export default function Home() {
             </NavigationMenuItem>
             <NavigationMenuIndicator />
           </NavigationMenuList>
-          <Link href="/auth" legacyBehavior passHref>
-            <NavigationMenuLink>
-              <Button className="h-full w-full">Login</Button>
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink className="flex flex-col justify-center">
+            <SignedOut>
+              <SignInButton />
+              {/*<Button className="h-full w-full">Login</Button>*/}
+            </SignedOut>
+          </NavigationMenuLink>
         </NavigationMenu>
+        <SignedIn>
+          <Link href="/dashboard">
+            <Button>Dashboard</Button>
+          </Link>
+          <UserButton />
+        </SignedIn>
       </div>
       <main className=""></main>
     </>
